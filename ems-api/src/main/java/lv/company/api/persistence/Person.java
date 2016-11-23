@@ -20,4 +20,12 @@ public class Person {
     public void setSurname(String newSurname) {
         this.surname = newSurname;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
+    }
 }

@@ -15,6 +15,10 @@ public class Student extends Person {
         return id;
     }
 
+    public void setId(Long newId) {
+        this.id = newId;
+    }
+
     public String getFormName() {
         return formName;
     }
@@ -61,5 +65,20 @@ public class Student extends Person {
 
     public void setLastLoginDate(Date lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Student{");
+        sb.append("id=").append(id);
+        sb.append(" ").append(super.toString());
+        sb.append(", formName='").append(formName).append('\'');
+        sb.append(", dateOfBirth=").append(dateOfBirth);
+        sb.append(", studentEmail='").append(studentEmail).append('\'');
+        sb.append(", active=").append(active);
+        sb.append(", blocked=").append(blocked);
+        sb.append(", lastLoginDate=").append(lastLoginDate);
+        sb.append('}');
+        return sb.toString();
     }
 }
