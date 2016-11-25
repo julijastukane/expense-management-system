@@ -4,7 +4,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DBStudentRepository implements Repository<Student> {
+    public enum StudentColumns {
+        student_id,
+        form_name,
+        student_name,
+        student_surname,
+        date_of_birth,
+        student_email,
+        active,
+        blocked,
+        last_login_date
+    }
+
     private final Connection connection;
 
     public DBStudentRepository(Connection conn) {
@@ -112,18 +125,26 @@ public class DBStudentRepository implements Repository<Student> {
 
 
     @Override
-    public void executeUpdate(Long studentId, Integer columnName, Object columnValue) {
+    public void executeUpdate(Long studentId, Integer studentColumns, Object columnValue) {
+        StudentColumns studentColumns1 = StudentColumns.values()[studentColumns];
         PreparedStatement ps = null;
-        final String UPDATE_SQL = "UPDATE STUDENT SET FORM_NAME = ?, " +
-                "STUDENT_NAME = ?, STUDENT_SURNAME = ?,DATE_OF_BIRTH = ?, " +
-                "STUDENT_EMAIL= ?, ACTIVE=?,BLOCKED=?,LAST_LOGIN_DATE=?" +
-                "WHERE STUDENT_ID = ?";
+        final String UPDATE_SQL = "UPDATE STUDENT SET " + studentColumns1 + " = ? " +
+                " WHERE STUDENT_ID= ?";
         try {
             connection.setAutoCommit(false);
             savepoint = connection.setSavepoint();
 
             ps = connection.prepareStatement(UPDATE_SQL);
+
+            System.out.println("Column name: " + studentColumns1 + " Value :" + columnValue);
+
+            ps.setObject(1, columnValue);
+            ps.setLong(2, studentId);
+            // Executing query
+            ps.executeUpdate();
+            connection.commit();
         } catch (SQLException e) {
+            System.out.println(UPDATE_SQL);
             e.printStackTrace();
         } finally {
             releaseStatement(ps);

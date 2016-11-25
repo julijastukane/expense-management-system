@@ -26,7 +26,7 @@ public class InMemoryStudentRepository implements Repository<Student> {
     }
 
     @Override
-    public void executeUpdate(Long studentId, Integer columnName, Object columnValue) {
+    public void executeUpdate(Long studentId, Integer columnOrd, Object columnValue) {
     }
 
     @Override

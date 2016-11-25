@@ -7,7 +7,7 @@ public interface Repository<T> {
 
     T executeGet(Long id);
 
-    void executeUpdate(Long studentId, Integer columnName, Object columnValue);
+    void executeUpdate(Long studentId, Integer columnOrd, Object columnValue);
 
     void executeDelete(Student student);
 
